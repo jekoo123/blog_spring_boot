@@ -1,0 +1,15 @@
+server:
+  port: 8000
+
+
+spring:
+  application:
+    name: login
+  datasource:
+    url: "jdbc:mysql://localhost:3306/your_database_name"
+    username: "spring"
+    password: "jgjg1229@"
+
+logging:
+  level:
+    org.hibernate.SQL: debug
