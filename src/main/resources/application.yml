@@ -6,9 +6,10 @@ spring:
   application:
     name: login
   datasource:
-    url: "jdbc:mysql://localhost:3306/your_database_name"
+    url: "jdbc:mysql://localhost:3306/blog"
     username: "spring"
     password: "jgjg1229@"
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
 logging:
   level:

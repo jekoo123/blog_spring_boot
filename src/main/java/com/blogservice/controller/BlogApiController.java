@@ -22,7 +22,4 @@ public class BlogApiController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedArticle);
     }
 
-
-
-
 }
