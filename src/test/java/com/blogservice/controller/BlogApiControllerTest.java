@@ -1,9 +1,11 @@
 package com.blogservice.controller;
 
 import com.blogservice.dto.AddArticleRequest;
+import com.blogservice.dto.UpdateArticleRequest;
 import com.blogservice.entity.Article;
 import com.blogservice.repository.BlogRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.hibernate.sql.Update;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -16,6 +18,7 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import javax.xml.transform.Result;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -132,6 +135,40 @@ class BlogApiControllerTest {
         //then
         List<Article> articles = blogRepository.findAll();
         assertThat(articles).isEmpty();
+
+
+    }
+
+
+    @DisplayName("updateArticle: 수정")
+    @Test
+    public void updateArticle() throws Exception{
+        //given
+        final String url = "/api/aricles/{id}";
+        final String title = "title";
+        final String content = "content";
+
+        Article savedArticle = blogRepository.save(Article.builder()
+                .title(title)
+                .content(content)
+                .build());
+
+        final String newTitle = "new Title";
+        final String newContent = "new Content";
+
+        UpdateArticleRequest request = new UpdateArticleRequest(newTitle, newContent);
+
+        //when
+        ResultActions result = mockMvc.perform(put(url, savedArticle.getId())
+                .contentType(MediaType.APPLICATION_JSON_VALUE)
+                .content(objectMapper.writeValueAsString(request)));
+
+        result.andExpect(status().isOk());
+
+        Article article = blogRepository.findById(savedArticle.getId()).get();
+
+        assertThat(article.getTitle()).isEqualTo(newTitle);
+        assertThat(article.getContent()).isEqualTo(newContent);
 
 
     }
