@@ -19,6 +19,7 @@ public class BlogService {
     public Article save(AddArticleRequest request){
         return blogRepository.save(request.toEntity());
     }
+    //스프링 부트에서 제일 중요한 코드: 데이터베이스에 request.toEntity()를 통해 만들어진 엔티티를 저장!!!!
     public List<Article> findAll(){
         return blogRepository.findAll();
     }

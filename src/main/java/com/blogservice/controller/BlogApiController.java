@@ -19,8 +19,11 @@ public class BlogApiController {
     private final BlogService blogService;
     @PostMapping("/api/articles")
     public ResponseEntity<Article> addArticle(@RequestBody AddArticleRequest request){
+        //Request body로 받은 json을 자바 객체로 바까줌 (AddArticleRequest dto 객체임!!)
         Article savedArticle = blogService.save(request);
+        //그렇게 바꾼 객체 (request)를 가지고 Service 로직 적용
         return ResponseEntity.status(HttpStatus.CREATED).body(savedArticle);
+        //응답 바디로 savedArticle을 전달
     }
 
     @GetMapping("/api/articles")

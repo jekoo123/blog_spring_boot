@@ -2,6 +2,9 @@ package com.blogservice.dto;
 
 import com.blogservice.entity.Article;
 
+
+//모든 글 확인 dto
+//
 public class ArticleListViewResponse {
     private final Long id;
     private final String title;
