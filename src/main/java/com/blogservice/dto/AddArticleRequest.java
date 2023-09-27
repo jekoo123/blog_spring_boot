@@ -10,6 +10,8 @@ import lombok.NoArgsConstructor;
 //dto는 각 계층에서 데이터를 전달하는 데에 사용
 //Controller에서 직접 엔티티에 가는게 좋지 않을까? ->
 //dto에는 코드 독립성, 검증 로직 등등 다양한 이점이 있다
+//생성 dto, 읽기 dto, 수정 dto, 삭제 dto 형식
+
 
 @NoArgsConstructor
 @AllArgsConstructor

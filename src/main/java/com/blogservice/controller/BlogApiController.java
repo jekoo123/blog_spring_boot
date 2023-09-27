@@ -6,7 +6,6 @@ import com.blogservice.dto.UpdateArticleRequest;
 import com.blogservice.entity.Article;
 import com.blogservice.service.BlogService;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,7 +22,7 @@ public class BlogApiController {
         Article savedArticle = blogService.save(request);
         //그렇게 바꾼 객체 (request)를 가지고 Service 로직 적용
         return ResponseEntity.status(HttpStatus.CREATED).body(savedArticle);
-        //응답 바디로 savedArticle을 전달
+        //응답 바디로 savedArticle을 전달, 201 created 반환
     }
 
     @GetMapping("/api/articles")
@@ -32,10 +31,11 @@ public class BlogApiController {
                 .stream()
                 .map(ArticleResponse::new)
                 .toList();
+        //전체조회 api는 여기서 findAll()로 구현됨
 
         return ResponseEntity.ok()
                 .body(articles);
-
+        //200반환
     }
 
     @GetMapping("/api/articles/{id}")
