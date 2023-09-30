@@ -26,7 +26,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain finterChain(HttpSecurity http) throws Exception{
         return http
                 .authorizeRequests()
-                .requestMatchers(("/login","/signup","/user").permitAll()
+                .requestMatchers(("/login", "/signup", "/user").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .loginPage("/login")
@@ -44,9 +44,14 @@ public class WebSecurityConfig {
     public AuthenticationManager authenticationManager(HttpSecurity http,
                                                        BCryptPasswordEncoder bCryptPasswordEncoder,
                                                        UserDetailService userDetailService) throws Exception{
-        return (http.getSharedObject(AuthenticationManagerBuilder.class)
+        return (AuthenticationManager) http.getSharedObject(AuthenticationManagerBuilder.class)
                 .userDetailsService(userService)
                 .passwordEncoder(bCryptPasswordEncoder);
+
+    }
+
+    @Bean public BCryptPasswordEncoder bCryptPasswordEncoder(){
+        return new BCryptPasswordEncoder();
 
     }
 
